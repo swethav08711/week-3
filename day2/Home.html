@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Lora", serif;
+      }
+      span {
+        padding: 15px;
+        cursor: pointer;
+      }
+      #headline {
+        margin-top: 20px;
+        width: 100%;
+        background-color: black;
+      }
+      #headline > img {
+        width: 80%;
+        height: 300px;
+        object-fit: fill;
+        margin-left: 150px;
+      }
+      #main {
+        display: grid;
+        grid-template-columns: 4% 100%;
+      }
+      #movie_details {
+        width: 70%;
+        display: grid;
+        grid-template-columns: 25% 25% 25%;
+        grid-gap: 2%;
+
+        margin-left: 370px;
+        margin-top: 70px;
+      }
+      #movie_details > div {
+        border: 3px solid rgb(236, 162, 180);
+        padding: 0px 10px 10px 10px;
+        justify-content: center;
+        border-radius: 8px;
+      }
+      #movie_details > div > img {
+        width: 100%;
+      }
+      #movie_details > div > p {
+        font-size: 20px;
+        margin: 0;
+        color: coral;
+      }
+      #sidebar {
+        width: 280px;
+        border: 1px solid black;
+        border-radius: 20px;
+        height: 250px;
+        padding: 20px;
+        font-size: 19px;
+        margin: 80px;
+        box-shadow: 0em 0em 1.5em rgba(255, 0.1, 0, 0.2);
+      }
+      #sidebar > button {
+        width: 240px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-light justify-content-end"
+      style="background-color: #e3f2fd; padding-right: 80px"
+    >
+      <span class="h4">Home</span>
+      <span class="h4" onclick="(location.href='Login.html')">Login</span>
+      <span class="h4" onclick="(location.href='Signup.html')">Signup</span>
+    </nav>
+    <div id="headline"></div>
+    <div id="main">
+      <div id="sidebar">
+        <p>Sort by low rating to high</p>
+        <button onclick="sortLH()" class="btn btn-info">Sort</button>
+        <p>Sort by high rating to low</p>
+        <button onclick="sortHL()" class="btn btn-info">Sort</button>
+      </div>
+      <div id="movie_details"></div>
+    </div>
+  </body>
+</html>
+<script src="home.js"></script>
