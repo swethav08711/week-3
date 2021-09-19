@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+
+        background-color: #ffcccc;
+        font-family: "Lora", serif;
+      }
+      .section {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      .section h1 {
+        width: 31%;
+        text-align: center;
+        font-size: 6rem;
+        padding: 20px;
+        margin: 15px;
+        background: rgb(87, 84, 84);
+        z-index: 1;
+        color: #ffcccc;
+      }
+      .video_enclose video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="section">
+      <h1>Thank you for purchasing</h1>
+      <div class="video_enclose">
+        <video autoplay loop muted>
+          <source
+            src="istockphoto-916914560-640_adpp_is.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+    </div>
+  </body>
+</html>

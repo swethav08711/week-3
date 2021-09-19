@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="product.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1>My Cart</h1>
+    <div id="main">
+      <div id="data"></div>
+      <div id="No_item">
+        <div>
+          <button onclick="total()" class="btn_1">Number of items</button>
+          <p id="n1" class="p_tag"></p>
+        </div>
+        <div>
+          <button onclick="price_tot()" class="btn_1">Total price</button>
+          <p id="t1" class="p_tag"></p>
+        </div>
+        <div class="break">
+          <div class="pro_dis">
+            <h4>Apply Promo Code:</h4>
+            <p id="prom_diff" class="p_tag1"></p>
+          </div>
+
+          <input
+            class="btn_12"
+            id="promo"
+            type="text"
+            placeholder="Apply Promo"
+          />
+          <ul id="ul_promo">
+            <li>masai30</li>
+            <li>masai50</li>
+            <li>masai80</li>
+          </ul>
+        </div>
+        <button onclick="submit()" class="btn_1">Submit</button>
+        <div class="slide">
+          <button onclick="submit()" class="btn_1">Total</button>
+          <p id="prom_sel" class="p_tag2"></p>
+        </div>
+        <button onclick="location_su()" class="chec_out">Checkout</button>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="3_1.js"></script>

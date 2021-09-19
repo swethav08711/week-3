@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <link rel="stylesheet" href="form.css" />
+    <link rel="stylesheet" href="product.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1>E-Commerce Website</h1>
+    <form id="E-commerce">
+      <input type="text" id="name" placeholder="name" />
+      <input type="number" id="price" placeholder="price" />
+      <input type="text" id="image" placeholder="image" />
+    </form>
+    <div class="btnbtn">
+      <button onclick="add_location()">Add Location</button>
+      <button onclick="show_location()">Show location</button>
+      <button onclick="view_cart()">View Cart</button>
+    </div>
+    <h2 style="text-align: center">Add Products to the Cart</h2>
+    <div id="data"></div>
+  </body>
+</html>
+<script src="3.js"></script>
