@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        font-family: "Lora", serif;
+      }
+      #main {
+        width: 50%;
+        margin: auto;
+        margin-top: 150px;
+        border: 2px solid grey;
+        height: 590px;
+        border-radius: 10px;
+        padding: 20px;
+      }
+      #vaccCount {
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <h1>Vaccine Alert System</h1>
+      <br />
+      <div>
+        <div>
+          <label for="name"><b>Name:</b></label>
+          <input type="text" id="name" />
+          <label for="age" class="ml-5"><b>Age</b>:</label>
+          <input type="text" id="age" />
+          <button id="register"><b>Register</b></button>
+        </div>
+        <div class="col pb-3" id="vaccCount"></div>
+      </div>
+      <div class="m-3"><b>Vaccine Queue:-</b></div>
+      <div id="queue"></div>
+    </div>
+    <script type="text/javascript">
+      window.addEventListener("load", function () {
+        const btn = document.getElementById("register")
+        btn.addEventListener("click", register)
+      })
+
+      const queue = [
+        { name: "Abhinav", age: 25 },
+        { name: "Ayush", age: 26 },
+        { name: "Prajwal", age: 23 },
+        { name: "Raja", age: 29 },
+        { name: "Vikas", age: 30 },
+        { name: "Sathya", age: 34 },
+        { name: "Jaswant", age: 24 },
+        { name: "Radha", age: 21 },
+        { name: "Krishnan", age: 28 },
+      ]
+      var countOfVacc = document.getElementById("vaccCount")
+      var vacc = document.createElement("h5")
+
+      var vaccCount = 9
+      vacc.innerHTML = `Number of vaccination available: ${vaccCount}`
+      vacc.setAttribute("class", " h5 ml-5")
+      var countOfPeople = document.createElement("h5")
+      countOfPeople.innerHTML = `Number of people in queue: ${queue.length}`
+      countOfPeople.setAttribute("class", "ml-5")
+      countOfVacc.append(vacc, countOfPeople)
+
+      console.log(queue)
+      function checkQueue(name, vaccCount) {
+        return new Promise(function (resolve, reject) {
+          const id = setInterval(function () {
+            if (queue[0].name === name && vaccCount !== 0) {
+              resolve(`${name} it's your turn now`)
+              clearInterval(id)
+            }
+            if (vaccCount === 0) {
+              resolve(`Vaccine out of stock, visit tomorrow`)
+            }
+          }, 3000)
+        })
+      }
+
+      function createUser(name, age) {
+        this.name = name
+        this.age = age
+      }
+      var count = 0
+      function register() {
+        let message = `There are ${queue.length} more people before you. Please wait your turn. We will inform you`
+        const name = document.getElementById("name").value
+        const age = document.getElementById("age").value
+        var temp = new createUser(name, age)
+        if (temp.age < 60) {
+          queue.push(temp)
+        }
+        //adds people of 60 age and above to the front of the queue.
+        if (temp.age >= 60) {
+          queue.unshift(temp)
+        }
+
+        visualize(queue)
+        console.log("queue:", queue)
+        alert(message)
+
+        checkQueue(name)
+          .then(function (message) {
+            alert(message)
+          })
+          .catch(function (err) {
+            console.log(err)
+          })
+      }
+
+      //this runs every n seconds
+
+      function vaccination() {
+        const age1 = document.getElementById("age").value
+
+        //If vaccine count is 0 it alerts that Vaccine is out of stock
+
+        if (vaccCount === 0) {
+          alert("Vaccine out of stock, visit tomorrow")
+          vacc.innerHTML = `Number of vaccination available: ${vaccCount}`
+        }
+        // checking age of Person
+        if (age1 < 60) {
+          queue.shift()
+          vaccCount--
+        }
+        if (age1 >= 60) {
+          setTimeout(function () {
+            queue.shift()
+            vaccCount--
+          }, 5000)
+        }
+        if (vaccCount >= 0) {
+          vacc.innerHTML = `Number of vaccination available: ${vaccCount}`
+        }
+        if (vaccCount === -1) {
+          vacc.innerHTML = `Number of vaccination available: ${0}`
+        }
+        countOfPeople.innerHTML = `Number of people in queue: ${queue.length}`
+
+        if (queue.length === 0) {
+          clearInterval(id)
+        }
+        visualize(queue)
+      }
+
+      function visualize(queue) {
+        const qContainer = document.getElementById("queue")
+        qContainer.innerHTML = ""
+        const ul = document.createElement("ul")
+        var k = 0
+        queue.forEach(function (name) {
+          const el = document.createElement("li")
+          el.textContent = queue[k].name
+          ul.append(el)
+          k++
+        })
+        qContainer.append(ul)
+      }
+      if (vaccCount > 0) {
+        var id = setInterval(vaccination, 2000)
+      }
+    </script>
+  </body>
+</html>
