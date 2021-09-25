@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #continer > div {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- country : <input type="text" id="country" /> -->
+    <button onclick="getdata()">Get Data</button>
+    <div id="continer"></div>
+  </body>
+</html>
+
+<script>
+  async function getdata() {
+    // let country = document.getElementById("country")
+    try {
+      let res = await fetch(
+        "https://newsapi.org/v2/top-headlines?country=us&apiKey=5929f890e67040998dcb02203d43a0ba"
+      )
+      let data = await res.json()
+      console.log(data.articles)
+      newsShow(data.articles)
+    } catch (err) {
+      console.log("error")
+    }
+  }
+
+  function newsShow(ele) {
+    let parent = document.getElementById("continer")
+
+    ele.forEach((el) => {
+      if (ele.length >= 10) {
+        let div = document.createElement("div")
+
+        let title = document.createElement("p")
+        title.innerText = el.title
+
+        let description = document.createElement("p")
+        description.innerText = el.description
+
+        let publishedAt = document.createElement("p")
+        publishedAt.innerText = el.publishedAt
+
+        div.append(title, description, publishedAt)
+        parent.append(div)
+      }
+    })
+  }
+</script>

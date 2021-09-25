@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        font-family: "Lora", serif;
+      }
+
+      #movi {
+        margin-top: 30px;
+        font-size: 22px;
+        text-align: center;
+      }
+      #movi > button {
+        border: none;
+        background-color: aqua;
+        border-radius: 10px;
+        width: 220px;
+        margin-left: 100px;
+      }
+      #container {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-gap: 9px;
+      }
+      #container > div {
+        width: 300px;
+        border: 1px solid slateblue;
+        text-align: center;
+        padding: 20px;
+        font-size: 22px;
+        border-radius: 4px;
+        margin-top: 50px;
+        margin-left: 50px;
+      }
+      #container > div > img {
+        width: 150px;
+      }
+      #container > div > p > p > img {
+        width: 100px;
+      }
+      #erro > p > img {
+        margin-left: 250px;
+        width: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="movi">
+      Name: <input type="text" id="movie" />
+      <button onclick="requestreceive()">Show Movie</button>
+    </div>
+    <div id="container"></div>
+    <div id="erro"></div>
+  </body>
+</html>
+
+<script>
+  async function requestreceive() {
+    let Mymovie = document.getElementById("movie").value
+    try {
+      let res = await fetch(
+        `http://www.omdbapi.com/?apikey=fee3dfe3&t=${Mymovie}`
+      )
+      let data = await res.json()
+      // console.log(data)
+      displayMovie(data)
+    } catch (err) {
+      let main = document.getElementById("erro")
+      let rex = document.createElement("p")
+      rex.innerHTML = `<img src="https://c.tenor.com/unvXyxtdn3oAAAAC/no-result.gif"/>`
+      main.append(rex)
+    }
+  }
+  function displayMovie(data) {
+    const container = document.getElementById("container")
+
+    var innerDiv = document.createElement("div")
+
+    let movieName = document.createElement("p")
+    movieName.innerHTML = data.Title
+
+    let moviePoster = document.createElement("img")
+    moviePoster.src = data.Poster
+
+    let type = document.createElement("p")
+    type.innerHTML = `Type: ${data.Type}`
+
+    let genre = document.createElement("p")
+    genre.innerHTML = `Genre: ${data.Genre}`
+
+    let rating = document.createElement("p")
+    rating.innerHTML = `Rating: ${data.Ratings[0].Value}`
+
+    let year = document.createElement("p")
+    year.innerHTML = `Year: ${data.Year}`
+    // let rat = Number(Rating)
+    // console.log(rat)
+    // if (rat > 8.5) {
+    var sto = data.Ratings[0].Value.split("").map(Number)
+    // console.log(sto[0])
+    let recco = document.createElement("p")
+    if (sto[0] > 7) {
+      let rex = document.createElement("p")
+      rex.innerHTML = `<img src="https://thumbs.dreamstime.com/b/recommendation-sign-grunge-stamp-label-180307094.jpg"/>`
+      recco.append(rex)
+    }
+    console.log(recco)
+    innerDiv.append(recco, moviePoster, movieName, type, genre, rating, year)
+    container.append(innerDiv)
+  }
+</script>
