@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        background-color: rgb(32, 32, 32);
+      }
+      body {
+        font-family: "Santepheap", sans-serif;
+        margin: 0;
+        /* display: flex;
+        flex-direction: column; */
+        align-items: center;
+        min-height: 100vh;
+      }
+      #main input {
+        width: 40%;
+        height: 50px;
+        margin-top: 20px;
+        border: 0.5px solid rgb(48, 46, 46);
+        background-color: rgb(18, 18, 18);
+        padding-left: 20px;
+        font-size: 19px;
+        margin-left: 25%;
+        color: white;
+      }
+      #main button {
+        width: 6%;
+        height: 50px;
+        border: none;
+        background-color: rgb(49, 49, 49);
+        margin: -5px;
+        padding-top: 6px;
+        color: rgb(253, 253, 253);
+      }
+      #video {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: 25% 25% 25% 25%;
+        margin: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <input type="text" id="query" placeholder="Search" />
+      <button onclick="fetchingData()">Search</button>
+    </div>
+    <div id="video"></div>
+  </body>
+</html>
+<script>
+  var video = document.getElementById("video")
+  async function fetchingmain() {
+    let res = await fetch(
+      "https://youtube.googleapis.com/youtube/v3/search?q=india&key=AIzaSyA9oP-m8wXZf3tB-DuGYjDAaV87bdd_JgU&maxResults=20"
+    )
+    let data = await res.json()
+    let { items } = data
+    items = items.filter((el) => {
+      return el.id.videoId != undefined
+    })
+    items.forEach(({ id: { videoId } }) => {
+      let div = document.createElement("div")
+
+      div.innerHTML = `<iframe width="340px" height="280px" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+      video.appendChild(div)
+    })
+  }
+  fetchingmain()
+  async function fetchingData() {
+    video.innerHTML = null
+    let query = document.getElementById("query").value
+    let res = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/search?q=${query}&key=AIzaSyA9oP-m8wXZf3tB-DuGYjDAaV87bdd_JgU&maxResults=20`
+    )
+    let data = await res.json()
+    console.log(data)
+    let { items } = data
+    items = items.filter((el) => {
+      return el.id.videoId != undefined
+    })
+    items.forEach(({ id: { videoId } }) => {
+      let div = document.createElement("div")
+
+      div.innerHTML = `<iframe width="340px" height="280px" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+      video.appendChild(div)
+    })
+  }
+</script>
