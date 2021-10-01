@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        font-family: "Lora", serif;
+      }
+
+      span {
+        padding: 15px;
+        cursor: pointer;
+      }
+      #continer {
+        width: 80%;
+        margin: auto;
+        margin-top: 40px;
+      }
+      #continer > div {
+        border: 1px solid black;
+
+        margin-bottom: 30px;
+        padding: 30px;
+      }
+      #continer > div > p:first-child {
+        color: red;
+      }
+      #continer > div > p {
+        font-size: 22px;
+        color: brown;
+      }
+      #continer > div > .p_img > img {
+        width: 400px;
+        height: 200px;
+        margin: 16px;
+      }
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <nav
+      class="navbar navbar-light justify-content-end"
+      style="background-color: #e3f2fd; padding-right: 80px"
+    >
+      <span class="h4" onclick="(location.href='News_app.html')">Home</span>
+      <span class="h4" onclick="(location.href='sports.html')">Sports</span>
+      <span class="h4">Entertainment</span>
+      <span class="h4" onclick="(location.href='technology.html')"
+        >Technology</span
+      >
+    </nav>
+    <h1>India Entertainment News API</h1>
+    <div id="continer"></div>
+  </body>
+</html>
+
+<script>
+  async function getsports() {
+    let res = await fetch(
+      "https://newsapi.org/v2/top-headlines?country=in&category=entertainment&apiKey=5929f890e67040998dcb02203d43a0ba"
+    )
+    let data = await res.json()
+    newsShow(data.articles)
+    console.log(data)
+  }
+  getsports()
+  function newsShow(ele) {
+    let parent = document.getElementById("continer")
+
+    ele.forEach((el) => {
+      let div = document.createElement("div")
+
+      let author = document.createElement("p")
+      author.innerText = el.author
+
+      let title = document.createElement("p")
+      title.innerText = el.title
+
+      let description = document.createElement("p")
+      description.innerText = el.description
+
+      let publishedAt = document.createElement("p")
+      publishedAt.innerText = el.publishedAt
+
+      let urlToImage = document.createElement("p")
+      urlToImage.setAttribute("class", "p_img")
+
+      if (el.urlToImage == null) {
+        let urlToImage11 = document.createElement("img")
+        urlToImage11.src =
+          "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+        urlToImage.append(urlToImage11)
+      } else {
+        let urlToImage12 = document.createElement("img")
+        urlToImage12.src = el.urlToImage
+        urlToImage.append(urlToImage12)
+      }
+      div.append(title, description, urlToImage, author, publishedAt)
+      parent.append(div)
+    })
+  }
+</script>
