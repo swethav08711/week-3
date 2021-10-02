@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #Search_items {
+        width: 40%;
+        height: 50px;
+        margin-top: 20px;
+        border: 0.5px solid rgb(48, 46, 46);
+        background-color: rgb(18, 18, 18);
+        padding-left: 20px;
+        font-size: 19px;
+        margin-left: 25%;
+        color: white;
+      }
+      #extra_div {
+        width: 40%;
+        height: 350px;
+        overflow-y: scroll;
+        padding-left: 20px;
+        font-size: 19px;
+        margin-left: 25%;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" oninput=" main()" id="Search_items" />
+    <div id="extra_div"></div>
+  </body>
+</html>
+<script>
+  var extra_div = document.getElementById("extra_div")
+  async function fetchdata() {
+    let name = document.getElementById("Search_items").value
+    if (name.length <= 2) {
+      return false
+    }
+    let res = await fetch(`http://www.omdbapi.com/?&s=${name}&apikey=fee3dfe3`)
+    let data = await res.json()
+    return data
+  }
+
+  function appendMovies(movies) {
+    movies.forEach(({ Title }) => {
+      let p = document.createElement("p")
+      p.innerText = Title
+      extra_div.append(p)
+    })
+  }
+
+  async function main() {
+    extra_div.innerHTML = null
+    let { Search } = await fetchdata()
+    appendMovies(Search)
+  }
+</script>

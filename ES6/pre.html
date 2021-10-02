@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  async function fetchdata() {
+    let res = await fetch("https://restcountries.com/v2/all")
+    let data = await res.json()
+    console.log(data)
+    mydata(data)
+  }
+  fetchdata()
+  function mydata(d) {
+    d.forEach(({ name, languages: [{ name: lang }], currencies }) => {
+      console.log(name, lang, currencies)
+    })
+  }
+</script>
