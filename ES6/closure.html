@@ -29,12 +29,17 @@
     </style>
   </head>
   <body>
-    <input type="text" oninput=" main()" id="Search_items" />
+    <input
+      type="text"
+      oninput="throttlefunction(main,2000)"
+      id="Search_items"
+    />
     <div id="extra_div"></div>
   </body>
 </html>
 <script>
   var extra_div = document.getElementById("extra_div")
+  var timerId
   async function fetchdata() {
     let name = document.getElementById("Search_items").value
     if (name.length <= 2) {
@@ -57,5 +62,15 @@
     extra_div.innerHTML = null
     let { Search } = await fetchdata()
     appendMovies(Search)
+  }
+  function throttlefunction(func, delay) {
+    if (timerId) {
+      return
+    }
+
+    timerId = setTimeout(() => {
+      func()
+      timerId = undefined
+    }, delay)
   }
 </script>
