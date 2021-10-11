@@ -8,16 +8,22 @@
 </head>
 <body>
     <button id="showbtn">Show Button</button>
+    <div id="div_contaner"></div>
 </body>
 </html>
 <script>
    let showbtn = document.getElementById('showbtn')
+   let div_contaner = document.getElementById('div_contaner')
    showbtn.addEventListener('click',()=>{
+    div_contaner.innerHTML = null
        for(let i=1;i<=5;i++){
         let btn = document.createElement('button')
-        btn.innerText = alert(`Button ${i}`)
-        document.body.append(btn)
+        btn.innerText = `button${i}`
+        btn.addEventListener('click',alerttbn)
+        div_contaner.append(btn)
        }
-      
+       function alerttbn(){
+           alert(event.target.innerText)
+       }
    })
 </script>
