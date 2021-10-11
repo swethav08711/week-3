@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        #result{
+            width: 150px;
+            border: 1px dashed black;
+            margin-top: 50px;
+            height: 190px;
+            display: flex;
+            flex-direction: row;
+        }
+        #result button{
+            height: 40px;
+            width: 150px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    Name: <input type="text"  id="Username" name="name">
+    PhoneNumber: <input type="number" id="phn" name="phn">
+    <button onclick="createcard()" id="Createbtn">Create</button>
+    <div id="result"></div>
+</body>
+</html>
+
+<script>
+    let result = document.getElementById('result')
+    function createcard(){
+    let card = document.createElement('div');
+    let Username = document.querySelector("input[name='name']").value;
+    let number = document.querySelector("input[name='phn']").value
+    result.innerHTML = null
+    let numberEl = document.createElement('p');
+    numberEl.textContent = number;
+    numberEl.className = 'hidden';
+    numberEl.id = 'phnEl'
+    let btn = document.createElement("button")
+    btn.textContent = 'Show Phone'
+    btn.addEventListener('click',togglefnu)
+   card.append(Username,btn,numberEl)
+   result.append(card)
+
+function togglefnu(){
+            let el = event.target.parentNode;
+            let phn = el.querySelector('#phnEl')
+            phn.classList.toggle('hidden')
+            event.target.textContent == 'Show Number' ? event.target.textContent = 'Hide Number' : event.target.textContent = 'Show Number'
+        }
+    }
+</script>
