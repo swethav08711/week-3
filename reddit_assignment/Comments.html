@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comment</title>
+    <style>
+      .comment {
+        padding: 10px;
+        border: 3px solid teal;
+      }
+      .first {
+        margin-top: 10px;
+        border: 2px solid turquoise;
+      }
+      .second {
+        padding-left: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        border: 3px solid cadetblue;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const post = {
+        id: "1",
+        title: "Hello World!",
+        body: "This is my app!",
+        author: "albseb",
+        comments: [
+          {
+            id: "1",
+            message: "Hello!",
+            author: "nrupul",
+            comments: [
+              {
+                id: "2",
+                message: "Thanks!",
+                author: "albseb",
+                comments: [
+                  {
+                    id: "3",
+                    message: "Oh!",
+                    author: "nrupul",
+                    comments: [],
+                  },
+                  {
+                    id: "4",
+                    message: "Yes!",
+                    author: "aman",
+                    comments: [],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: "5",
+            message: "Hello!",
+            author: "aman",
+            comments: [],
+          },
+          {
+            id: "6",
+            message: "Hello!",
+            author: "swanand",
+            comments: [],
+          },
+        ],
+      }
+
+      function createComment(comment, parent) {
+        for (const c of comment) {
+          const li = document.createElement("li")
+          li.textContent = `${c.message} - ${c.author}`
+          const ul = document.createElement("ul")
+
+          const response = document.createElement("textarea")
+          response.placeholder = `respond to ${c.author}  :)`
+          response.setAttribute("class", "first")
+
+          createComment(c.comments, ul)
+          parent.append(li, response, ul)
+          //T
+          parent.append(response)
+          parent.setAttribute("class", "second")
+        }
+      }
+
+      function createPost(post) {
+        const container = document.createElement("div")
+        const title = document.createElement("div")
+        const body = document.createElement("div")
+        const author = document.createElement("div")
+        title.textContent = post.title
+        body.textContent = post.body
+        author.textContent = post.author
+
+        const commentsContainer = document.createElement("ul")
+        // commentsContainer.setAttribute("class","first");
+        createComment(post.comments, commentsContainer)
+        console.log(commentsContainer, post)
+        container.append(title, body, author, commentsContainer)
+        container.setAttribute("class", "comment")
+        return container
+      }
+
+      const tree = createPost(post)
+      document.body.append(tree)
+    </script>
+  </body>
+</html>
