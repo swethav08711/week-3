@@ -27,14 +27,16 @@
 </html>
 <script>
   const URL = "http://api.adorable.io/avatars"
+  let appendi = 0
+
   function scrolling(numImage = 25) {
     let heading = document.getElementById("heading")
-    let i = 1
-    while (i <= 25) {
+
+    for (let i = 0; i < 25; i++) {
       let div = document.createElement("div")
-      div.innerHTML = `Masai Student`
+      div.innerHTML = `Masai Student ${appendi}`
       heading.appendChild(div)
-      i++
+      appendi++
     }
   }
   scrolling()
